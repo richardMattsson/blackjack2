@@ -249,7 +249,7 @@
 
 // -------------------------- Uppgift 9 Ta emot en hand och räkna ut värdet -----------
 
-
+let git = 0
 
 let score = function(card){
   // ska ta emot en array med kortobjekt

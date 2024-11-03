@@ -3,7 +3,7 @@
 // Uppgift 2.
 // let card = function(value, suit){
 
-//   let chosenCARD = {suit: 'HEARTS', value: 1}
+//   let chosenCARD = {}
 
 //   chosenCARD.suit = suit
 //   chosenCARD.value = value
@@ -12,14 +12,16 @@
 // }
 // console.log(card(1,'HEARTS'));
 // console.log(card(2,'SPADES'));
+// console.log(card(3,'CLUBS'));
 
 // ------------------------Uppgift 3--------------------------------------
 
-// Objektivet i denna uppgift är att lägga till värden till en array
-// så att den representerar samtliga hjärterkort i en kortlek.
+// Objektivet i denna uppgift är att lägga till värden
+// till en array så att den representerar samtliga
+// hjärterkort i en kortlek.
 
-// 1. [x] Utgå från en variabel/konstant hearts och en tom array
-//        (till exempel via let hearts = []).
+// 1. [x] Utgå från en variabel/konstant hearts och
+// en tom array (till exempel via let hearts = []).
 
 // Array:en ska innehålla 13 objekt. Samtliga objekt ska ha en
 // suit-nyckel med det associerade värdet 'HEARTS'.
@@ -43,7 +45,7 @@
 // for(let i = 1; hearts.length < 13; i++){
 // hearts.push({suit: 'HEARTS', value: i})
 // }
-// console.log(hearts[3])
+// console.log(hearts)
 
 // ------------------------Uppgift 4-------------------------------------
 
@@ -70,7 +72,6 @@
 // let spades = '\u2660'
 // let diamonds = '\u2666'
 // let clubs = '\u2663'
-
 
 // const prettyCard = function (card) {
 
@@ -136,10 +137,10 @@
 //   return value + suit
 // }
 
-// console.log(prettyCard({ suit: 'HEARTS', value: 1 }), 'A♥')
-// console.log(prettyCard({ suit: 'SPADES', value: 2 }), '2♠')
-// console.log(prettyCard({ suit: 'DIAMONDS', value: 10 }), 'T♦')
-// console.log(prettyCard({ suit: 'CLUBS', value: 11 }), 'J♣')
+// console.log(prettyCard({ suit: 'HEARTS', value: 1 }))
+// console.log(prettyCard({ suit: 'SPADES', value: 2 }))
+// console.log(prettyCard({ suit: 'DIAMONDS', value: 10 }))
+// console.log(prettyCard({ suit: 'CLUBS', value: 11 }))
 
 // ----------------------Uppgift 5-----------------------------------------
 
@@ -149,8 +150,6 @@
 
 // Tilldela en tom array till en variabel/konstant, deck,
 // som ska representera samtliga kort i en kortlek,
-
-
 
 // och lägg in 52 objekt i denna array (med push-instruktionen).
 // Det ska finnas ett objekt för varje kort i en kortlek.
@@ -188,7 +187,7 @@
 // En funktion behöver inte skapas som en del av denna uppgift.
 
 
-// -------------------- Uppgift 6 Skapa kortlek ----------------------------------
+// -------------------- Uppgift 6 Funktion som skapar och returnerar en kortlek ----------------------------------
 
 // let createDeck = function(){
 
@@ -197,30 +196,23 @@
 
 //   for(let n = 0; n < suits.length; n++){
 //     for(let i = 1; i <= 13; i++){
-//       deck.push({suit:suits[n], value:i})
+//       deck.push({suits:suits[n], value:i})
 //     }
 //   }
 //   return deck
 // }
 
-// createDeck()
+// createDeck();
 
 
 // --------------------- Uppgift 7 'Pop' skicka tillbaka ett kort-----------------------
-// let deck = []
-//   let suits = ['HEARTS', 'SPADES', 'DIAMONDS', 'CLUBS']
-
-//   for(let n = 0; n < suits.length; n++){
-//     for(let i = 1; i <= 13; i++){
-//       deck.push({suit:suits[n], value:i})
-//     }
-//   }
+// let deck = createDeck()
 
 // let draw = function(deck){
-//   // Här inne vill jag ta bort ett kort från arrayen och skicka tillbaka den.
-// // då använder jag mig av metoden pop.
-// let card = deck.pop()
-//   return card
+  // Här inne vill jag ta bort ett kort från arrayen och skicka tillbaka den.
+// då använder jag mig av metoden pop.
+// let removeACard = deck.pop()
+//   return removeACard
 // }
 // console.log(draw(deck));
 
@@ -231,13 +223,16 @@
 // let shuffle = function(deck){
 
 // for(let i = deck.length - 1; i > 0; i--){
+  // skapar ett slumpat indextal
+  // let j = Math.floor(Math.random() * (i + 1))
 
-//   let j = Math.floor(Math.random() * (i + 1))
+  // sparar undan klöver kung temporärt i varibeln temp
+  // let temp = deck[i]
 
-//   let temp = deck[i]
-
-//   deck[i] = deck[j]
-//   deck[j] = temp
+  // ändrar klöbver kung till det slumpade indexet (ex. spader dam)
+  // deck[i] = deck[j]
+  // tar det slumpade indexet (spader dam) och låter det bli kortets nya plats
+  // deck[j] = temp
 
 // }
 
@@ -249,35 +244,173 @@
 
 // -------------------------- Uppgift 9 Ta emot en hand och räkna ut värdet -----------
 
-let git = 0
-
-let score = function(card){
+// let score = function(card){
   // ska ta emot en array med kortobjekt
   //  och räkna ut blackjack - poäng
-  // ess = 11
+  // ess = 11 men 1 om poängen är större än 21
   // klädda, J, Q, K = 10
   // resterande är värde deras value = 2-10
-  // hur skriver jag ut ett värde från ett objekt?
-  let points = 0
-  let aces = 0
+  // let points = 0
+  // let aces = 0
 
-  for(let i = 0; i < card.length; i++){
+  // for(let i = 0; i < card.length; i++){
 
-      if(card[i].value === 1){
-        points += 11
-        aces ++
-      }else if(card[i].value === 11 || card[i].value === 12 || card[i].value === 13){
-        points += 10
-      }else{
-        points += card[i].value
-      }
+  //     if(card[i].value === 1){
+  //       points += 11
+  //       aces ++
+  //     }else if(card[i].value === 11 || card[i].value === 12 || card[i].value === 13){
+  //       points += 10
+  //     }else{
+  //       points += card[i].value
+  //     }
+  //   }
+  //       while (points > 21 && aces > 0){
+  //         points -= 10
+  //         aces--
+  //       }
+  //       return points
+  //     }
+
+
+// console.log(score([{ suit: 'HEARTS', value: 1 }, { suit: 'HEARTS', value: 11 }, { suit: 'HEARTS', value: 3 }]));
+
+// ---------Övning blanda index i en array -----------------------
+
+// skapa array med tre värden
+// logga
+// byta plats på två av värdena utan att skriva värdena i koden bara använda variabler och index
+// logga
+
+// let array = ['alice', 'bob', 'ceasar']
+// console.log(array);
+
+// let temp = array[0]
+// console.log(temp);
+
+
+// array[0]=array[2]
+// array[2]=temp
+
+// console.log(array);
+
+// let a = [{a:1},{b:2},{c:3},{d:4},{e:5}]
+
+// for(let i = a.length - 1; i > 0; i--){
+
+//   let j = Math.floor(Math.random() * (i + 1))
+
+//   let temp = a[i]
+
+//   a[i]=a[j]
+//   a[j]=temp
+// }
+// console.log(a);
+
+// -----------------------------------------------------------
+
+// let aceOfHearts = {suit:'HEARTS', value: 1}
+// console.log(aceOfHearts.suit);
+// console.log(aceOfHearts.value);
+
+// let card = function(number, string){
+//   let card2 = {}
+//   card2.suit = string
+//   card2.value = number
+//   return card2
+// }
+// console.log(card(1, 'HEARTS'));
+
+// let hearts = []
+
+// for (let index = 1; index <= 13; index++){
+//   hearts.push({suit: 'HEARTS', value: index})
+
+// }
+// console.log(hearts);
+
+// let prettyCard = function(card){
+// let suit, value
+//   switch (card.value){
+//   case 1: value = 'A'; break
+//   case 2: value = '2'; break
+//   case 3: value = '3'; break
+//   case 4: value = '4'; break
+//   case 5: value = '5'; break
+//   case 6: value = '6'; break
+//   case 7: value = '7'; break
+//   case 8: value = '8'; break
+//   case 9: value = '9'; break
+//   case 10: value = 'T'; break
+//   case 11: value = 'J'; break
+//   case 12: value = 'Q'; break
+//   case 13: value = 'K'; break
+// }
+// switch (card.suit){
+//   case 'HEARTS': suit = '\u2665'; break
+//   case 'SPADES': suit = '\u2660'; break
+//   case 'DIAMONDS': suit = '\u2666'; break
+//   case 'CLUBS': suit = '\u2663'; break
+// }
+// return value + suit
+// }
+// console.log(prettyCard(card(1, 'HEARTS')));
+// console.log(prettyCard(card(5, 'SPADES')));
+// console.log(prettyCard(card(10, 'DIAMONDS')));
+// console.log(prettyCard(card(13, 'CLUBS')));
+
+
+let createDeck = function (){
+  let deck = []
+  let suits = ['HEARTS', 'SPADES', 'DIAMONDS', 'CLUBS']
+  for(let index = 0; index < suits.length; index++){
+    for(let number = 1; number <= 13; number++){
+      deck.push({suit: suits[index], value: number})
     }
-        while (points > 21 && aces > 0){
-          points -= 10
-          aces--
-        }
-        return points
+  }
+return deck
+}
+let deck = createDeck()
+
+let draw = function (deck){
+  let card = deck.pop()
+  return card
+}
+draw(createDeck())
+
+let shuffle = function (deck){
+  for(let index = 0; index < deck.length; index++){
+    let number = Math.floor(Math.random() * (index + 1))
+
+    let temporary = deck[index]
+    deck[index] = deck[number]
+    deck[number] = temporary
+  }
+  return deck
+}
+// console.log(shuffle(deck));
+console.log(deck);
+
+let score = function(card){
+  let score = 0
+  let aces = 0
+  for(let index = 0; index < card.length; index++){
+    if(card[index].value === 1){
+      score += 11
+      aces++
+    }else if (card[index].value === 13 || card[index].value === 12 || card[index].value === 11){
+      score += 10
+    }else {
+      score += card[index].value
+    }
+    }
+    while ( score > 21 && aces > 0) {
+      score -= 10
+       aces--
       }
+     return score
+  }
 
-
-console.log(score([{ suit: 'HEARTS', value: 1 }, { suit: 'HEARTS', value: 9 }, { suit: 'HEARTS', value: 9 }]));
+console.log(score([{suit: 'HEARTS', value: 12}, {suit: 'HEARTS', value: 1}, {suit: 'HEARTS', value: 8}]));
+console.log(score([{suit: 'HEARTS', value: 12}, {suit: 'HEARTS', value: 1}]));
+console.log(score([{suit: 'HEARTS', value: 1}, {suit: 'HEARTS', value: 1}]));
+console.log(score([{suit: 'HEARTS', value: 1}, {suit: 'HEARTS', value: 1}]));

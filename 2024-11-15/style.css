@@ -1,0 +1,49 @@
+body {
+  background-color: green;
+}
+h1 {
+  text-align: center;
+}
+.item1 {
+  grid-area: Dealer-score;
+}
+.item2 {
+  grid-area: Dealer-cards;
+}
+.item3 {
+  grid-area: Deck;
+}
+.item4 {
+  grid-area: Pot;
+}
+.item5 {
+  grid-area: Player-score;
+}
+.item6 {
+  grid-area: Player-cards;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "Dealer-score Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
+    "Deck Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
+    "Deck Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
+    "Deck Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
+    "Deck Pot Pot Pot Pot"
+    "Deck Player-cards Player-cards Player-cards Player-cards"
+    "Deck Player-cards Player-cards Player-cards Player-cards"
+    "Deck Player-cards Player-cards Player-cards Player-cards"
+    "Player-score Player-cards Player-cards Player-cards Player-cards";
+  gap: 10px;
+  background-color: none;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: none;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+  border: 1px solid black;
+}

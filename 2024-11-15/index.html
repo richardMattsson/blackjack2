@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Blackjack</h1>
+    <div class="grid-container">
+      <div class="item1">
+        Dealer-score
+        <input id="dealerScore" type="text" placeholder="Dealer-score" />
+      </div>
+      <div class="item2">
+        Dealer-cards
+        <ol>
+          <li id="cardList3"></li>
+          <li id="cardList4"></li>
+        </ol>
+      </div>
+      <div class="item3">
+        Deck
+        <img
+          src="BACK.png"
+          alt="picture of a deck of cards"
+          style="width: 100px"
+        />
+      </div>
+      <div class="item4">Pot</div>
+      <div class="item5">
+        Player-score
+        <input id="playerScore" type="text" placeholder="Player-score" />
+        <button id="cardButton">Ta ett nytt kort</button>
+      </div>
+      <div class="item6">
+        Player-cards
+        <ol id="oList">
+          <li id="cardList1"></li>
+          <li id="cardList2"></li>
+        </ol>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

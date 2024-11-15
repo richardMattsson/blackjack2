@@ -8,34 +8,32 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Blackjack</h1>
+    <!-- <h1>Blackjack</h1> -->
     <div class="grid-container">
       <div class="item1">
-        Dealer-score
+        <h2>Dealer-score</h2>
         <input id="dealerScore" type="text" placeholder="" />
       </div>
       <div class="item2">
-        Dealer-cards
-        <ol id="dealerOList">
-          <li><img src="cards/10-C.png" alt="" /></li>
-        </ol>
+        <h2 id="headerDealer">Dealer-cards</h2>
+        <ol id="dealerOList"></ol>
       </div>
       <div class="item3">
-        Deck
+        <h2>Deck</h2>
         <img src="BACK.png" alt="picture of a deck of cards" />
       </div>
-      <div class="item4">Pot</div>
+      <div class="item4">
+        <h2>Pot</h2>
+        <button id="hitButton">Hit</button>
+        <button id="stayButton">Stay</button>
+      </div>
       <div class="item5">
-        Player-score
+        <h2>Player-score</h2>
         <input id="playerScore" type="text" placeholder="" />
-        <button id="cardButton">Hit</button>
       </div>
       <div class="item6">
-        Player-cards
-        <ol id="oList">
-          <!-- <li id="cardList1"></li>
-          <li id="cardList2"></li> -->
-        </ol>
+        <h2 id="headerPlayer">Player-cards</h2>
+        <ol id="oList"></ol>
       </div>
     </div>
     <script src="index.js"></script>

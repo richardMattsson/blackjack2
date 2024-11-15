@@ -94,7 +94,7 @@ let prettyCard = function (card) {
       value = "9";
       break;
     case 10:
-      value = "T";
+      value = "10";
       break;
     case 11:
       value = "J";
@@ -108,31 +108,24 @@ let prettyCard = function (card) {
   }
   switch (card.suit) {
     case "HEARTS":
-      suit = "\u2665";
-      // suit = "HEARTS";
+      // suit = "\u2665";
+      suit = "H";
       break;
     case "SPADES":
-      suit = "\u2660";
-      // suit = "SPADES";
+      // suit = "\u2660";
+      suit = "S";
       break;
     case "DIAMONDS":
-      suit = "\u2666";
-      // suit = "DIAMONDS";
+      // suit = "\u2666";
+      suit = "D";
       break;
     case "CLUBS":
-      suit = "\u2663";
-      // suit = "CLUBS";
+      // suit = "\u2663";
+      suit = "C";
       break;
   }
 
-  //   console.log(value + suit);
-  // let img
-  //   switch (value + suit){
-  //     case "QDIAMONDS"
-  //     img =
-  //   }
-
-  return value + suit;
+  return value + "-" + suit;
 };
 
 let deck = createDeck();
@@ -150,6 +143,8 @@ for (let i = 0; i < 2; i++) {
 }
 
 let result = score(hand);
+const playerInputField = document.querySelector("#playerScore");
+playerInputField.setAttribute("placeholder", result);
 
 let proceed = confirm(
   ` Din score är ${result}.
@@ -206,9 +201,6 @@ if (result === 21 && hand.length === 2) {
     Dealer score är ${dealerResult}`);
 }
 
-const playerInputField = document.querySelector("#playerScore");
-playerInputField.setAttribute("placeholder", result);
-
 const dealerInputField = document.querySelector("#dealerScore");
 dealerInputField.setAttribute("placeholder", dealerResult);
 
@@ -218,24 +210,36 @@ let listElement;
 let cardInsideList;
 for (let i = 0; i < hand.length; i++) {
   hand[i] = prettyCard(hand[i]);
-  cardInsideList = document.createTextNode(hand[i]);
+  // cardInsideList = document.createTextNode(hand[i]);
   listElement = document.createElement("li");
+  imgElement = document.createElement("img");
   oList.appendChild(listElement);
-  listElement.appendChild(cardInsideList);
+  listElement.appendChild(imgElement);
+  imgElement.setAttribute("src", "cards/" + hand[i] + ".png");
 }
 console.log("Spelares hand: " + hand);
 
 // ============= Dealer cards ===============================
 dealerOList = document.querySelector("#dealerOList");
 
+// for (let i = 0; i < dealerHand.length; i++) {
+// dealerHand[i] = prettyCard(dealerHand[i]);
+// dealerCardInsideList = document.createTextNode(dealerHand[i]);
+// dealerListElement = document.createElement("li");
+// dealerOList.appendChild(dealerListElement);
+//   dealerListElement.appendChild(dealerCardInsideList);
+// }
 let dealerListElement;
 let dealerCardInsideList;
+let dealerImgElement;
 for (let i = 0; i < dealerHand.length; i++) {
   dealerHand[i] = prettyCard(dealerHand[i]);
-  dealerCardInsideList = document.createTextNode(dealerHand[i]);
+  // cardInsideList = document.createTextNode(hand[i]);
   dealerListElement = document.createElement("li");
+  dealerImgElement = document.createElement("img");
   dealerOList.appendChild(dealerListElement);
-  dealerListElement.appendChild(dealerCardInsideList);
+  dealerListElement.appendChild(dealerImgElement);
+  dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
 }
 
 console.log("Dealer hand: " + dealerHand);

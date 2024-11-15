@@ -1,5 +1,6 @@
 body {
   background-color: green;
+  font-family: sans-serif;
 }
 h1 {
   text-align: center;
@@ -27,13 +28,13 @@ h1 {
   display: grid;
   grid-template-areas:
     "Dealer-score Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
-    "Deck Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
-    "Deck Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
+    "Dealer-score Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
+    "Dealer-score Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
     "Deck Dealer-cards Dealer-cards Dealer-cards Dealer-cards"
     "Deck Pot Pot Pot Pot"
     "Deck Player-cards Player-cards Player-cards Player-cards"
-    "Deck Player-cards Player-cards Player-cards Player-cards"
-    "Deck Player-cards Player-cards Player-cards Player-cards"
+    "Player-score Player-cards Player-cards Player-cards Player-cards"
+    "Player-score Player-cards Player-cards Player-cards Player-cards"
     "Player-score Player-cards Player-cards Player-cards Player-cards";
   gap: 10px;
   background-color: none;
@@ -48,10 +49,50 @@ h1 {
   border: 1px solid black;
 }
 img {
-  height: 100px;
+  height: 125px;
 }
 
 #dealerScore,
 #playerScore {
   width: 50px;
+  height: 75px;
+  font-size: 25px;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 10px;
+}
+ol {
+  display: flex;
+  border: 1px solid black;
+  list-style: none;
+  flex-wrap: wrap;
+}
+li {
+  border: 1px solid black;
+  width: 100px;
+
+  display: inline;
+}
+
+#hitButton,
+#stayButton {
+  width: 75px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  font-size: 20px;
+}
+#headerPlayer,
+#headerDealer {
+  font-size: 20px;
+  border: 1px solid black;
+  margin: 0;
 }

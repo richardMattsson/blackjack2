@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blackjack</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -11,34 +12,29 @@
     <div class="grid-container">
       <div class="item1">
         Dealer-score
-        <input id="dealerScore" type="text" placeholder="Dealer-score" />
+        <input id="dealerScore" type="text" placeholder="" />
       </div>
       <div class="item2">
         Dealer-cards
-        <ol>
-          <li id="cardList3"></li>
-          <li id="cardList4"></li>
+        <ol id="dealerOList">
+          <li><img src="cards/10-C.png" alt="" /></li>
         </ol>
       </div>
       <div class="item3">
         Deck
-        <img
-          src="BACK.png"
-          alt="picture of a deck of cards"
-          style="width: 100px"
-        />
+        <img src="BACK.png" alt="picture of a deck of cards" />
       </div>
       <div class="item4">Pot</div>
       <div class="item5">
         Player-score
-        <input id="playerScore" type="text" placeholder="Player-score" />
-        <button id="cardButton">Ta ett nytt kort</button>
+        <input id="playerScore" type="text" placeholder="" />
+        <button id="cardButton">Hit</button>
       </div>
       <div class="item6">
         Player-cards
         <ol id="oList">
-          <li id="cardList1"></li>
-          <li id="cardList2"></li>
+          <!-- <li id="cardList1"></li>
+          <li id="cardList2"></li> -->
         </ol>
       </div>
     </div>

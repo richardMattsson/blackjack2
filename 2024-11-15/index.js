@@ -109,29 +109,38 @@ let prettyCard = function (card) {
   switch (card.suit) {
     case "HEARTS":
       suit = "\u2665";
+      // suit = "HEARTS";
       break;
     case "SPADES":
       suit = "\u2660";
+      // suit = "SPADES";
       break;
     case "DIAMONDS":
       suit = "\u2666";
+      // suit = "DIAMONDS";
       break;
     case "CLUBS":
       suit = "\u2663";
+      // suit = "CLUBS";
       break;
   }
+
+  //   console.log(value + suit);
+  // let img
+  //   switch (value + suit){
+  //     case "QDIAMONDS"
+  //     img =
+  //   }
+
   return value + suit;
 };
 
 let deck = createDeck();
-// console.log(deck);
 
 let shuffledDeck = shuffle(deck);
-// console.log(shuffledDeck);
 
 let card;
 card = draw(shuffledDeck);
-card = prettyCard(card);
 
 let hand = [];
 
@@ -142,36 +151,32 @@ for (let i = 0; i < 2; i++) {
 
 let result = score(hand);
 
-const proceed = confirm(
+let proceed = confirm(
   ` Din score är ${result}.
-
     Vill du ta ett nytt kort?
     Eller vill du stanna?`
 );
 
-let continueQuestion;
 if (proceed === true) {
   do {
     card = draw(shuffledDeck);
     hand.push(card);
     result = score(hand);
 
-    continueQuestion = confirm(
-      `Din score är ${result}.
-    Vill du ha ett nytt kort
-    eller stanna?`
+    proceed = confirm(
+      ` Din score är ${result}.
+      Vill du ha ett nytt kort
+      Eller vill du stanna?`
     );
-  } while (continueQuestion === true && result < 22);
+  } while (proceed === true && result < 22);
 }
 
 let dealerHand = [];
-
 for (let i = 0; i < 2; i++) {
   card = draw(shuffledDeck);
   dealerHand.push(card);
 }
 let dealerResult = score(dealerHand);
-
 while (dealerResult < 17 && dealerResult < 21) {
   card = draw(shuffledDeck);
   dealerHand.push(card);
@@ -204,45 +209,33 @@ if (result === 21 && hand.length === 2) {
 const playerInputField = document.querySelector("#playerScore");
 playerInputField.setAttribute("placeholder", result);
 
-for (let i = 0; i < hand.length; i++) {
-  hand[i] = prettyCard(hand[i]);
-}
-
-console.log(hand);
-
-// const playerCard1 = document.createTextNode(hand[0]);
-// const playerCard2 = document.createTextNode(hand[1]);
-// console.log(hand[1]);
-
-// console.log(hand[2]);
-
-// const playerCard3 = document.createTextNode(hand[2]);
-// console.log(playerCard3);
-
-// const playerCardList1 = document.querySelector("#cardList1");
-// const playerCardList2 = document.querySelector("#cardList2");
-
-// const playerOList = document.querySelector("#oList");
-// const playerList3 = document.createElement("li");
-// playerOList.appendChild(playerList3);
-
-// playerCardList1.appendChild(playerCard1);
-// playerCardList2.appendChild(playerCard2);
-// playerList3.appendChild(playerCard3);
-
-// ============= Dealer cards ===============================
-
-// dealerHand[0] = prettyCard(dealerHand[0]);
-// dealerHand[1] = prettyCard(dealerHand[1]);
-
-// const dealerCard1 = document.createTextNode(dealerHand[0]);
-// const dealerCard2 = document.createTextNode(dealerHand[1]);
-
-// const dealerCardList1 = document.querySelector("#cardList3");
-// const dealerCardList2 = document.querySelector("#cardList4");
-
-// dealerCardList1.appendChild(dealerCard1);
-// dealerCardList2.appendChild(dealerCard2);
-
 const dealerInputField = document.querySelector("#dealerScore");
 dealerInputField.setAttribute("placeholder", dealerResult);
+
+oList = document.querySelector("#oList");
+
+let listElement;
+let cardInsideList;
+for (let i = 0; i < hand.length; i++) {
+  hand[i] = prettyCard(hand[i]);
+  cardInsideList = document.createTextNode(hand[i]);
+  listElement = document.createElement("li");
+  oList.appendChild(listElement);
+  listElement.appendChild(cardInsideList);
+}
+console.log("Spelares hand: " + hand);
+
+// ============= Dealer cards ===============================
+dealerOList = document.querySelector("#dealerOList");
+
+let dealerListElement;
+let dealerCardInsideList;
+for (let i = 0; i < dealerHand.length; i++) {
+  dealerHand[i] = prettyCard(dealerHand[i]);
+  dealerCardInsideList = document.createTextNode(dealerHand[i]);
+  dealerListElement = document.createElement("li");
+  dealerOList.appendChild(dealerListElement);
+  dealerListElement.appendChild(dealerCardInsideList);
+}
+
+console.log("Dealer hand: " + dealerHand);

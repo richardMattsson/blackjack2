@@ -8,32 +8,59 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- <h1>Blackjack</h1> -->
     <div class="grid-container">
+      <!-- Deck and deal button -->
       <div class="item1">
-        <h2>Dealer-score</h2>
-        <input id="dealerScore" type="text" placeholder="" />
-      </div>
-      <div class="item2">
-        <h2 id="headerDealer">Dealer-cards</h2>
-        <ol id="dealerOList"></ol>
-      </div>
-      <div class="item3">
-        <h2>Deck</h2>
         <img src="BACK.png" alt="picture of a deck of cards" />
       </div>
+      <!-- Dealer cards -->
+      <div class="item2 rounded-borders">
+        <ol id="dealerOList"></ol>
+      </div>
+      <!-- Header -->
+      <div class="item3">
+        <h1>BlackJack</h1>
+      </div>
+      <!-- New game button -->
       <div class="item4">
-        <h2>Pot</h2>
-        <button id="hitButton">Hit</button>
+        <pre>
+  If you get
+  2 points
+  you are the 
+  Champion!</pre
+        >
+        <!-- <button
+          id="playAgainButton"
+          style="width: 200px; background-color: rgb(211, 211, 77)"
+        >
+          New Game
+        </button> -->
+      </div>
+      <!-- hit button and stay button field -->
+      <div class="item5">
+        <!-- <h2>Player-score</h2> -->
+        <!-- <button id="hitButton">Hit</button> -->
+        <button id="dealButton">Hit</button>
         <button id="stayButton">Stay</button>
       </div>
-      <div class="item5">
-        <h2>Player-score</h2>
-        <input id="playerScore" type="text" placeholder="" />
-      </div>
-      <div class="item6">
-        <h2 id="headerPlayer">Player-cards</h2>
+      <!-- Player card field -->
+      <div class="item6 rounded-borders">
         <ol id="oList"></ol>
+      </div>
+      <!-- dealer score -->
+      <div class="item7">
+        <h2 class="header">Dealer-score</h2>
+        <input id="dealerScore" type="text" placeholder="0" />
+      </div>
+      <!-- player score -->
+      <div class="item8">
+        <h2 class="header">Player-score</h2>
+        <input id="playerScore" type="text" placeholder="0" />
+      </div>
+      <!-- Points -->
+      <div class="points">
+        <h2 class="header">Points</h2>
+        <input id="points" type="text" placeholder="0" readonly />
       </div>
     </div>
     <script src="index.js"></script>

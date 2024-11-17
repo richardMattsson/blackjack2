@@ -129,117 +129,285 @@ let prettyCard = function (card) {
 };
 
 let deck = createDeck();
-
 let shuffledDeck = shuffle(deck);
+let card = draw(shuffledDeck);
 
-let card;
-card = draw(shuffledDeck);
+const hitButton = document.querySelector("#hitButton");
+const dealButton = document.querySelector("#dealButton");
+const stayButton = document.querySelector("#stayButton");
+const playAgainButton = document.querySelector("#playAgainButton");
+const playerInputField = document.querySelector("#playerScore");
+const dealerInputField = document.querySelector("#dealerScore");
 
 let hand = [];
-
-for (let i = 0; i < 2; i++) {
-  card = draw(shuffledDeck);
-  hand.push(card);
-}
-
-let result = score(hand);
-const playerInputField = document.querySelector("#playerScore");
-playerInputField.setAttribute("placeholder", result);
-
-let proceed = confirm(
-  ` Din score är ${result}.
-    Vill du ta ett nytt kort?
-    Eller vill du stanna?`
-);
-
-if (proceed === true) {
-  do {
-    card = draw(shuffledDeck);
-    hand.push(card);
-    result = score(hand);
-
-    proceed = confirm(
-      ` Din score är ${result}.
-      Vill du ha ett nytt kort
-      Eller vill du stanna?`
-    );
-  } while (proceed === true && result < 22);
-}
-
 let dealerHand = [];
-for (let i = 0; i < 2; i++) {
-  card = draw(shuffledDeck);
-  dealerHand.push(card);
-}
-let dealerResult = score(dealerHand);
-while (dealerResult < 17 && dealerResult < 21) {
-  card = draw(shuffledDeck);
-  dealerHand.push(card);
-  dealerResult = score(dealerHand);
-}
+let handPoints = [];
+let dealerHandPoints = [];
+let result;
+let dealerResult;
 
-if (result === 21 && hand.length === 2) {
-  alert(`Du vann! Du fick Blackjack!
-    Din score är ${result}.`);
-} else if (result > dealerResult && result <= 21) {
-  alert(`Du vann!
-    Din score är ${result}.
-    Dealer score är ${dealerResult}`);
-} else if (result > 21) {
-  alert(`Du förlorade.
-    Din score är ${result}.`);
-} else if (result === dealerResult) {
-  alert(`Det blev lika. Din poäng är ${result}. Dealern har ${dealerResult}`);
-} else if (result < 21 && result < dealerResult && dealerResult <= 21) {
-  alert(`Du förlorade.
-    Din score är ${result}.
-    Dealern vann.
-    Dealer score är ${dealerResult}`);
-} else if (result <= 21 && dealerResult > 21) {
-  alert(`Du vann!
-    Din score är ${result}.
-    Dealer score är ${dealerResult}`);
-}
+// ========= Funktion ====================
 
-const dealerInputField = document.querySelector("#dealerScore");
-dealerInputField.setAttribute("placeholder", dealerResult);
-
-oList = document.querySelector("#oList");
+let dealerListElement;
+let dealerImgElement;
+const dealerOList = document.querySelector("#dealerOList");
 
 let listElement;
-let cardInsideList;
-for (let i = 0; i < hand.length; i++) {
-  hand[i] = prettyCard(hand[i]);
-  // cardInsideList = document.createTextNode(hand[i]);
-  listElement = document.createElement("li");
-  imgElement = document.createElement("img");
-  oList.appendChild(listElement);
-  listElement.appendChild(imgElement);
-  imgElement.setAttribute("src", "cards/" + hand[i] + ".png");
+let imgElement;
+const oList = document.querySelector("#oList");
+
+let endGame = false;
+
+const SCORE_KEY = "gameScore";
+const scoreField = document.querySelector("#points");
+
+let earnedPoints = parseInt(sessionStorage.getItem(SCORE_KEY), 10) || 0;
+
+scoreField.placeholder = earnedPoints;
+
+if (earnedPoints === 2) {
+  alert("You are the champion!");
 }
-console.log("Spelares hand: " + hand);
 
-// ============= Dealer cards ===============================
-dealerOList = document.querySelector("#dealerOList");
+function deal() {
+  if (endGame === true) {
+    clearTable();
+  }
 
-// for (let i = 0; i < dealerHand.length; i++) {
-// dealerHand[i] = prettyCard(dealerHand[i]);
-// dealerCardInsideList = document.createTextNode(dealerHand[i]);
-// dealerListElement = document.createElement("li");
-// dealerOList.appendChild(dealerListElement);
-//   dealerListElement.appendChild(dealerCardInsideList);
+  if (hand.length < 2) {
+    for (let i = 0; i < 2; i++) {
+      card = draw(shuffledDeck);
+      hand.push(card);
+      handPoints.push(card);
+    }
+    result = score(handPoints);
+    // playerInputField = document.querySelector("#playerScore");
+    playerInputField.setAttribute("placeholder", result);
+
+    for (let i = 0; i < hand.length; i++) {
+      hand[i] = prettyCard(hand[i]);
+      listElement = document.createElement("li");
+      imgElement = document.createElement("img");
+      oList.appendChild(listElement);
+      listElement.appendChild(imgElement);
+      imgElement.setAttribute("src", "cards/" + hand[i] + ".png");
+      listElement.classList.add("cards");
+    }
+
+    card = draw(shuffledDeck);
+    dealerHand.push(card);
+    dealerHandPoints.push(card);
+
+    dealerHand[0] = prettyCard(dealerHand[0]);
+    dealerListElement = document.createElement("li");
+    dealerImgElement = document.createElement("img");
+    dealerOList.appendChild(dealerListElement);
+    dealerListElement.appendChild(dealerImgElement);
+    dealerImgElement.setAttribute("src", "cards/" + dealerHand[0] + ".png");
+    dealerListElement.classList.add("cards");
+  } else {
+    card = draw(shuffledDeck);
+    handPoints.push(card);
+    hand.push(card);
+    result = score(handPoints);
+
+    // const playerInputField = document.querySelector("#playerScore");
+    playerInputField.setAttribute("placeholder", result);
+
+    let i = hand.length - 1;
+    hand[i] = prettyCard(hand[i]);
+
+    listElement = document.createElement("li");
+    oList.appendChild(listElement);
+    imgElement = document.createElement("img");
+    listElement.appendChild(imgElement);
+    imgElement.setAttribute("src", "cards/" + hand[i] + ".png");
+    listElement.classList.add("cards");
+
+    // if (result > 21) {
+    //   stay();
+    // }
+  }
+}
+dealButton.addEventListener("click", deal);
+
+// function hit() {
+//   card = draw(shuffledDeck);
+//   handPoints.push(card);
+//   hand.push(card);
+//   result = score(handPoints);
+//   const playerInputField = document.querySelector("#playerScore");
+//   playerInputField.setAttribute("placeholder", result);
+
+//   let i = hand.length - 1;
+//   hand[i] = prettyCard(hand[i]);
+
+//   listElement = document.createElement("li");
+//   oList.appendChild(listElement);
+//   imgElement = document.createElement("img");
+//   listElement.appendChild(imgElement);
+//   imgElement.setAttribute("src", "cards/" + hand[i] + ".png");
+//   listElement.classList.add("cards");
+
+//   if (result > 21) {
+//     stay();
+//   }
 // }
-let dealerListElement;
-let dealerCardInsideList;
-let dealerImgElement;
-for (let i = 0; i < dealerHand.length; i++) {
-  dealerHand[i] = prettyCard(dealerHand[i]);
-  // cardInsideList = document.createTextNode(hand[i]);
-  dealerListElement = document.createElement("li");
-  dealerImgElement = document.createElement("img");
-  dealerOList.appendChild(dealerListElement);
-  dealerListElement.appendChild(dealerImgElement);
-  dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
+
+// hitButton.addEventListener("click", hit);
+
+function stay() {
+  if (endGame === false) {
+    card = draw(shuffledDeck);
+    dealerHand.push(card);
+    dealerHandPoints.push(card);
+    dealerResult = score(dealerHandPoints);
+
+    dealerInputField.setAttribute("placeholder", dealerResult);
+
+    let i = dealerHand.length - 1;
+    dealerHand[i] = prettyCard(dealerHand[i]);
+
+    dealerListElement = document.createElement("li");
+    dealerOList.appendChild(dealerListElement);
+    dealerImgElement = document.createElement("img");
+    dealerListElement.appendChild(dealerImgElement);
+    dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
+    dealerListElement.classList.add("cards");
+
+    while (dealerResult < 21 && dealerResult < result) {
+      card = draw(shuffledDeck);
+      dealerHand.push(card);
+      dealerHandPoints.push(card);
+      dealerResult = score(dealerHandPoints);
+
+      dealerInputField.setAttribute("placeholder", dealerResult);
+
+      let i = dealerHand.length - 1;
+      dealerHand[i] = prettyCard(dealerHand[i]);
+
+      dealerListElement = document.createElement("li");
+      dealerOList.appendChild(dealerListElement);
+      dealerImgElement = document.createElement("img");
+      dealerListElement.appendChild(dealerImgElement);
+      dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
+      dealerListElement.classList.add("cards");
+    }
+
+    // if (result <= 21) {
+    //   dealerInputField.setAttribute("placeholder", dealerResult);
+
+    //   for (let i = 1; i < dealerHand.length; i++) {
+    //     dealerHand[i] = prettyCard(dealerHand[i]);
+    //     dealerListElement = document.createElement("li");
+    //     dealerOList.appendChild(dealerListElement);
+    //     dealerImgElement = document.createElement("img");
+    //     dealerListElement.appendChild(dealerImgElement);
+    //     dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
+    //     dealerListElement.classList.add("cards");
+    //   }
+
+    if (result === 21 && hand.length === 2) {
+      endGame = true;
+      earnedPoints++;
+      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+      // const points = document.querySelector("#points");
+      // points.setAttribute("placeholder", earnedPoints);
+      points.placeholder = earnedPoints;
+      alert(`Du vann! Du fick Blackjack!
+      Din score är ${result}.`);
+    } else if (result <= 21 && dealerResult > 21) {
+      endGame = true;
+      earnedPoints++;
+      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+      // const points = document.querySelector("#points");
+      // points.setAttribute("placeholder", earnedPoints);
+      points.placeholder = earnedPoints;
+      alert(`Du vann!
+        Din score är ${result}.
+        Dealer score är ${dealerResult}`);
+    } else if (result > 21) {
+      endGame = true;
+      earnedPoints--;
+      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+      // const points = document.querySelector("#points");
+      // points.setAttribute("placeholder", earnedPoints);
+      points.placeholder = earnedPoints;
+      alert(`Du förlorade.
+          Din score är ${result}.`);
+    } else if (result === dealerResult) {
+      endGame = true;
+      // sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+      alert(
+        `Det blev lika. Din poäng är ${result}. Dealern har ${dealerResult}`
+      );
+    } else if (dealerResult <= 21 && result < dealerResult) {
+      endGame = true;
+      earnedPoints--;
+      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+      // const points = document.querySelector("#points");
+      // points.setAttribute("placeholder", earnedPoints);
+      points.placeholder = earnedPoints;
+      alert(`Du förlorade.
+            Din score är ${result}.
+            Dealern vann.
+            Dealer score är ${dealerResult}`);
+    } else {
+      endGame = true;
+      alert("Annat utfall");
+      // sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+    }
+  }
+  endGame = true;
 }
 
-console.log("Dealer hand: " + dealerHand);
+stayButton.addEventListener("click", stay);
+
+let div = document.querySelector(".item6");
+let div2 = document.querySelector(".item2");
+let ol = document.querySelector("#oList");
+let li = document.querySelectorAll("li");
+let dol = document.querySelector("#dealerOList");
+let li1 = document.getElementsByClassName(".cards");
+
+function clearTable() {
+  // console.log(li2);
+  sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+  location.reload();
+  // endGame = false
+  // if (endGame === true) {
+  // console.log(li);
+  // console.log(ol);
+  // console.log(div);
+
+  // ol.removeChild(li);
+  // playerInputField.setAttribute("placeholder", 0);
+  // dealerInputField.setAttribute("placeholder", 0);
+
+  // div2.removeChild(li1);
+  //   console.log(hand);
+  // listElement = document.querySelector("ol");
+  // listElement = document.querySelector("li");
+  // imgElement = document.querySelector(".cards");
+  // //   const allListElements2 = document.getElementById("dealerOList");
+  // //   const playerInputField2 = document.querySelector("#playerScore");
+  // //   const dealerInputField2 = document.querySelector("#dealerScore");
+  // if (listElement) {
+  //   listElement.remove();
+  // } else {
+  //   console.log("Inga element att ta bort");
+  // }
+
+  // if (imgElement) {
+  //   imgElement.remove();
+  // } else {
+  //   console.log("Inga element att ta bort");
+  // }
+
+  // console.log(endGame);
+
+  //   dealerInputField2.setAttribute("placeholder", 0);
+  endGame = false;
+}
+
+// playAgainButton.addEventListener("click", clearTable);

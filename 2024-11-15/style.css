@@ -176,10 +176,6 @@ h1 {
   margin: 0;
   padding: 0%;
 }
-#dealerOList,
-#oList {
-  /* margin: 50px; */
-}
 
 .rounded-borders {
   border: 2px solid rgb(208, 208, 27);

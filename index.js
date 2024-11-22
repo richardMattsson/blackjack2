@@ -16,16 +16,13 @@ let shuffle = function (deck) {
   for (let i = deck.length - 1; i > 0; i--) {
     // skapar ett slumpat indextal som jag sparar undan i variabeln j
     let j = Math.floor(Math.random() * (i + 1));
-
     // sparar undan kortet som ska blandas temporärt i en varibel temp
     let temp = deck[i];
-
     // ändrar kortet till det slumpade indexet i variabeln j
     deck[i] = deck[j];
     // tar det slumpade kortet i variabeln j och låter det få det bytta kortets plats.
     deck[j] = temp;
   }
-
   return deck;
 };
 let draw = function (deck) {
@@ -108,7 +105,7 @@ let prettyCard = function (card) {
   }
   switch (card.suit) {
     case "HEARTS":
-      // suit = "\u2665";
+      // suit = "\u2665"; Dessa koder var för tidigare uppgift utan kortbilder.
       suit = "H";
       break;
     case "SPADES":
@@ -124,13 +121,11 @@ let prettyCard = function (card) {
       suit = "C";
       break;
   }
-
   return value + "-" + suit;
 };
 
 let deck = createDeck();
 let shuffledDeck = shuffle(deck);
-let card = draw(shuffledDeck);
 
 const hitButton = document.querySelector("#hitButton");
 const dealButton = document.querySelector("#dealButton");
@@ -138,6 +133,8 @@ const stayButton = document.querySelector("#stayButton");
 const playAgainButton = document.querySelector("#playAgainButton");
 const playerInputField = document.querySelector("#playerScore");
 const dealerInputField = document.querySelector("#dealerScore");
+const dealerOList = document.querySelector("#dealerOList");
+const oList = document.querySelector("#oList");
 
 let hand = [];
 let dealerHand = [];
@@ -145,28 +142,22 @@ let handPoints = [];
 let dealerHandPoints = [];
 let result;
 let dealerResult;
-
-let dealerListElement;
-let dealerImgElement;
-const dealerOList = document.querySelector("#dealerOList");
-
 let listElement;
 let imgElement;
-const oList = document.querySelector("#oList");
-
+let dealerListElement;
+let dealerImgElement;
 let endGame = false;
 
 // För att lagra poängen när sidan laddas om.
 const SCORE_KEY = "gameScore";
 const scoreField = document.querySelector("#points");
 let earnedPoints = parseInt(sessionStorage.getItem(SCORE_KEY), 10) || 0;
-scoreField.placeholder = earnedPoints;
+scoreField.value = earnedPoints;
 
 function deal() {
   if (endGame === true) {
     clearTable();
   }
-
   if (hand.length < 2) {
     for (let i = 0; i < 2; i++) {
       card = draw(shuffledDeck);
@@ -174,7 +165,7 @@ function deal() {
       handPoints.push(card);
     }
     result = score(handPoints);
-    playerInputField.setAttribute("placeholder", result);
+    playerInputField.setAttribute("value", result);
 
     for (let i = 0; i < hand.length; i++) {
       hand[i] = prettyCard(hand[i]);
@@ -183,12 +174,12 @@ function deal() {
       oList.appendChild(listElement);
       listElement.appendChild(imgElement);
       imgElement.setAttribute("src", "cards/" + hand[i] + ".png");
-      listElement.classList.add("cards");
     }
 
     card = draw(shuffledDeck);
     dealerHand.push(card);
     dealerHandPoints.push(card);
+    dealerResult = score(dealerHandPoints);
 
     dealerHand[0] = prettyCard(dealerHand[0]);
     dealerListElement = document.createElement("li");
@@ -196,18 +187,16 @@ function deal() {
     dealerOList.appendChild(dealerListElement);
     dealerListElement.appendChild(dealerImgElement);
     dealerImgElement.setAttribute("src", "cards/" + dealerHand[0] + ".png");
-    dealerListElement.classList.add("cards");
   } else {
     card = draw(shuffledDeck);
-    handPoints.push(card);
     hand.push(card);
-    result = score(handPoints);
+    handPoints.push(card);
 
-    playerInputField.setAttribute("placeholder", result);
+    result = score(handPoints);
+    playerInputField.setAttribute("value", result);
 
     let i = hand.length - 1;
     hand[i] = prettyCard(hand[i]);
-
     listElement = document.createElement("li");
     oList.appendChild(listElement);
     imgElement = document.createElement("img");
@@ -226,65 +215,36 @@ function stay() {
     dealerHandPoints.push(card);
     dealerResult = score(dealerHandPoints);
 
-    dealerInputField.setAttribute("placeholder", dealerResult);
-
-    let i = dealerHand.length - 1;
-    dealerHand[i] = prettyCard(dealerHand[i]);
-
-    dealerListElement = document.createElement("li");
-    dealerOList.appendChild(dealerListElement);
-    dealerImgElement = document.createElement("img");
-    dealerListElement.appendChild(dealerImgElement);
-    dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
-    dealerListElement.classList.add("cards");
-
     while (dealerResult < 21 && dealerResult < result) {
       card = draw(shuffledDeck);
       dealerHand.push(card);
       dealerHandPoints.push(card);
       dealerResult = score(dealerHandPoints);
-
-      dealerInputField.setAttribute("placeholder", dealerResult);
+    }
+    if (result < 22) {
+      dealerResult = score(dealerHandPoints);
+      dealerInputField.setAttribute("value", dealerResult);
 
       let i = dealerHand.length - 1;
       dealerHand[i] = prettyCard(dealerHand[i]);
-
       dealerListElement = document.createElement("li");
       dealerOList.appendChild(dealerListElement);
       dealerImgElement = document.createElement("img");
       dealerListElement.appendChild(dealerImgElement);
       dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
-      dealerListElement.classList.add("cards");
     }
 
     if (result === 21 && hand.length === 2) {
-      endGame = true;
-      earnedPoints++;
-      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
-
-      points.placeholder = earnedPoints;
+      updatePoints(1);
     } else if (result <= 21 && dealerResult > 21) {
-      endGame = true;
-      earnedPoints++;
-      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
-
-      points.placeholder = earnedPoints;
+      updatePoints(1);
     } else if (result > 21) {
-      endGame = true;
-      earnedPoints--;
-      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
-
-      points.placeholder = earnedPoints;
+      updatePoints(-1);
     } else if (result === dealerResult) {
-      endGame = true;
     } else if (dealerResult <= 21 && result < dealerResult) {
-      endGame = true;
-      earnedPoints--;
-      sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
-
-      points.placeholder = earnedPoints;
+      updatePoints(-1);
     } else {
-      endGame = true;
+      updatePoints(1);
     }
   }
   if (earnedPoints === 2) {
@@ -293,6 +253,12 @@ function stay() {
   endGame = true;
 }
 stayButton.addEventListener("click", stay);
+
+function updatePoints(change) {
+  earnedPoints += change;
+  sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());
+  points.value = earnedPoints; // Update the visible value directly
+}
 
 function clearTable() {
   sessionStorage.setItem(SCORE_KEY, earnedPoints.toString());

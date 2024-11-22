@@ -171,7 +171,7 @@ h1 {
 }
 
 .header {
-  font-size: 30px;
+  font-size: 25px;
   color: #222;
   margin: 0;
   padding: 0%;
@@ -182,5 +182,6 @@ h1 {
   border-radius: 70px;
 }
 pre {
+  font-size: 20px;
   color: rgb(197, 175, 51);
 }

@@ -210,18 +210,10 @@ dealButton.addEventListener("click", deal);
 
 function stay() {
   if (endGame === false) {
-    card = draw(shuffledDeck);
-    dealerHand.push(card);
-    dealerHandPoints.push(card);
-    dealerResult = score(dealerHandPoints);
-
-    while (dealerResult < 21 && dealerResult < result) {
+    do {
       card = draw(shuffledDeck);
       dealerHand.push(card);
       dealerHandPoints.push(card);
-      dealerResult = score(dealerHandPoints);
-    }
-    if (result < 22) {
       dealerResult = score(dealerHandPoints);
       dealerInputField.setAttribute("value", dealerResult);
 
@@ -232,7 +224,7 @@ function stay() {
       dealerImgElement = document.createElement("img");
       dealerListElement.appendChild(dealerImgElement);
       dealerImgElement.setAttribute("src", "cards/" + dealerHand[i] + ".png");
-    }
+    } while (dealerResult < 21 && dealerResult < result);
 
     if (result === 21 && hand.length === 2) {
       updatePoints(1);

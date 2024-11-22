@@ -152,17 +152,25 @@ li {
   /* width: 100px; */
   display: inline;
 }
-
+#dealButton {
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  /* background-color: rgb(246, 224, 224); */
+  border: #222 1px solid;
+}
 #hitButton,
-#stayButton,
-#dealButton,
-#playAgainButton {
+#stayButton {
   width: 75px;
   height: 50px;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
   border-radius: 10px;
+  border: #222 1px solid;
 }
 h1 {
   font-size: 40px;

@@ -232,9 +232,10 @@
     font-family: sans-serif;
     display: flex;
     border: 1px solid black;
+    width: 100vw;
   }
   img {
-    height: 100px;
+    height: 80px;
     /* border: 1px solid black; */
   }
   .item1 {
@@ -245,9 +246,11 @@
     /* gap: 30px; */
     grid-area: Deck;
     border: 5px solid rgb(14, 98, 15);
-    border-radius: 40%;
-    height: 150px;
-    width: 150px;
+    border-radius: 30%;
+    height: 100px;
+    width: 100px;
+    margin-left: 10px;
+    margin-top: 10px;
   }
   .item2 {
     display: flex;
@@ -256,8 +259,8 @@
     align-items: center;
     /* gap: 10px; */
     grid-area: Dealer-cards;
-    height: 150px;
-    width: 300px;
+    height: 120px;
+    width: 250px;
     /* margin-left: 5px; */
     border: 5px solid white;
   }
@@ -274,7 +277,7 @@
     grid-area: Pot;
     border: 2px solid rgb(1, 0, 3);
     height: 150px;
-    width: 150px;
+    width: 100px;
     /* margin-top: 40%; */
   }
   .item5 {
@@ -282,7 +285,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 60px;
+    /* gap: 60px; */
     grid-area: Player-hit;
     border: 2px solid rgb(13, 15, 0);
     height: 50px;
@@ -294,8 +297,9 @@
     justify-content: center;
     grid-area: Player-cards;
     /* border: 2px solid rgb(14, 94, 39); */
-    height: 150px;
-    width: 300px;
+    height: 120px;
+    width: 250px;
+    margin-right: 20px;
   }
   .item7 {
     display: flex;
@@ -305,9 +309,9 @@
     /* gap: 30px; */
     grid-area: Dealer-score;
     border: 2px solid rgb(252, 2, 2);
-    height: 100px;
-    width: 100px;
-    /* margin-top: 10%; */
+    height: 80px;
+    width: 70px;
+    margin-left: 5px;
   }
   .item8 {
     display: flex;
@@ -317,9 +321,9 @@
     /* gap: 30px; */
     grid-area: Player-score;
     border: 2px solid rgb(252, 2, 2);
-    height: 100px;
-    width: 100px;
-    margin-top: 15%;
+    height: 80px;
+    width: 70px;
+    margin-left: 5px;
     /* margin-left: 5px; */
   }
   .points {
@@ -328,10 +332,9 @@
     align-items: center;
     justify-content: center;
     justify-content: space-evenly;
-    /* gap: 10%; */
     height: 80px;
-    width: 80px;
-    /* margin-left: 50px; */
+    width: 70px;
+    margin-left: 5px;
     grid-area: Points;
     border: 2px solid rgb(252, 2, 2);
   }
@@ -343,8 +346,8 @@
   #dealerScore,
   #playerScore,
   #points {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     font-size: 15px;
     color: black;
     text-align: center;
@@ -363,7 +366,7 @@
   #dealButton {
     width: 100px;
     height: 30px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     border-radius: 10px;
@@ -372,23 +375,25 @@
   }
   #hitButton,
   #stayButton {
-    width: 100px;
+    width: 80px;
     height: 30px;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     border-radius: 10px;
     border: #222 1px solid;
+    margin-left: 15px;
   }
   h1 {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 25px;
-    height: 150px;
+    height: 100px;
     margin: 0;
     color: #222;
     border: 1px solid red;
+    margin-top: 30px;
   }
 
   .header {
@@ -403,7 +408,7 @@
     border-radius: 70px;
   }
   pre {
-    font-size: 10px;
+    font-size: 7px;
     color: rgb(197, 175, 51);
   }
 }

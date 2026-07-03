@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -11,7 +11,7 @@
     <div class="grid-container">
       <!-- Deck and deal button -->
       <div class="item1">
-        <img src="BACK.png" alt="picture of a deck of cards" />
+        <img src="BACK.webp" alt="picture of a deck of cards" />
       </div>
       <!-- Dealer cards -->
       <div class="item2 rounded-borders">
@@ -22,29 +22,16 @@
         <h1>BlackJack</h1>
       </div>
       <!-- New game button -->
-      <div class="item4">
-        <pre>
-Hit-button starts an deal
-  Stay-button stops
-    New game? Press Hit
-  
-  If you get
-  2 points
-    you are the 
-    Champion!</pre
-        >
-        <!-- <button
-          id="playAgainButton"
-          style="width: 200px; background-color: rgb(211, 211, 77)"
-        >
-          New Game
-        </button> -->
-      </div>
+
+      <textarea class="item4">
+Player draw cards first. Closest to 21 wins. If you get over 21 you lose.</textarea
+      >
+
       <!-- hit button and stay button field -->
       <div class="item5">
         <!-- <h2>Player-score</h2> -->
         <!-- <button id="hitButton">Hit</button> -->
-        <button id="dealButton">Deal / Hit</button>
+        <button id="dealButton">Deal</button>
         <button id="stayButton">Stay</button>
       </div>
       <!-- Player card field -->
@@ -67,6 +54,6 @@ Hit-button starts an deal
         <input id="points" type="text" placeholder="0" readonly />
       </div>
     </div>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
